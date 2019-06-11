@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.mglizerin.tuningfork.staff.StaffGrid
 import com.mglizerin.tuningfork.staff.StaffGridParams
 import com.mglizerin.vocaltuningfork.application.TuningForkApplication
+import com.mglizerin.vocaltuningfork.application.createTestSample
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val resources = TuningForkApplication.getApplication().resources
         val staffGrid = StaffGrid(StaffGridParams())
 
-        val staffButton = StaffButton(this, resources, staffGrid)
+        val staffButton = StaffButton(this, resources, staffGrid, createTestSample())
         staffButton.setOnClickListener {
             Toast.makeText(this, "Staff button pushed!", Toast.LENGTH_SHORT).show()
         }

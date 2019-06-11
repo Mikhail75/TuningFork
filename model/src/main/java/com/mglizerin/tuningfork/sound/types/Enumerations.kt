@@ -29,3 +29,21 @@ enum class Beat(private val value: Int) {
 
     fun toInt() : Int = value
 }
+
+/**
+ * Элементы аккорда
+ */
+enum class ChordElement {
+    /** Закрашенная нотная головка */
+    FilledHead,
+    /** Незакрашенная нотная головка */
+    OutlineHead,
+    /** Штиль */
+    Stem,
+    /** Диез*/
+    Sharp,
+    /** Бемоль */
+    Flat,
+    /** Бекар */
+    Natural,
+}

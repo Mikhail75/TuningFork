@@ -1,12 +1,12 @@
 package com.mglizerin.tuningfork.staff
 
+import com.mglizerin.tuningfork.sound.types.ChordElement
+
 /**
- * Параметры  нотной головки
- *
- * @param width Ширина нотной головки
- * @param height Высота нотной головки
+ * @param width Ширина
+ * @param height Высота
  */
-data class NoteHeadSize(
+data class Size(
     val width: Int,
     val height: Int
 )
@@ -25,6 +25,29 @@ data class NoteStemCoord(
 )
 
 /**
+ * Метрики элемента аккорда (используются для отрисовки)
+ *
+ * @param element [Элемент аккорда][ChordElement]
+ * @param coord Координаты элемента (x, y)
+ */
+data class ChordElementMetrics(
+    val element: ChordElement,
+    val coord: Pair<Int, Int>,
+    val stemCoord: NoteStemCoord? = null
+)
+
+/**
+ * Метрики аккорда (используются для отрисовки)
+ *
+ * @param elements [Метрики элементов аккорда][ChordElementMetrics]
+ * @param width Общая прямоугольника, включающего все элементы аккорда
+ */
+data class ChordMetrics(
+    val elements: List<ChordElementMetrics>,
+    val width: Int
+)
+
+/**
  * Параметры сетки нотного стана (все значения в px)
  *
  * @param width Ширина сетки
@@ -33,14 +56,23 @@ data class NoteStemCoord(
  * @param spaceBetweenVGuides Расстояние между вертикальными направляющими
  * @param baseLinesGuides Номера горизонтальных направляющих основных линеек нотного стана
  * @param lineWeight Толщина линейки нотного стана
- * @param noteHeadWidthRatio Отношение ширины нотной головки к высоте
+ * @param showClef Нужно ли показывать скрипичный ключ
+ * @param marginBeforeClef Отступ перед ключом
+ * @param marginBeforeKeyAccidentals Отступ перед группой знаков альтерации при ключе (без учёта ключа)
+ * @param marginBeforeChords Отступ перед аккордами
+ * @param spaceBetweenAccidentalAndNoteHead Расстояние между знаком альтерации и нотной головкой
  */
 data class StaffGridParams(
-    val width: Int = 500,
-    val height: Int = 200,
-    val hGuidesCount: Int = 21,
-    val spaceBetweenVGuides: Int = 6,
-    val baseLinesGuides: List<Int> = listOf(6, 8, 10, 12, 14),
+    val width: Int = 400,
+    val height: Int = 120,
+    val hGuidesCount: Int = 17,
+    val spaceBetweenVGuides: Int = 8,
+    val baseLinesGuides: List<Int> = listOf(4, 6, 8, 10, 12),
     val lineWeight: Int = 1,
-    val noteHeadWidthRatio: Float = 1.23f
+    val showClef: Boolean = true,
+    val marginBeforeClef: Int = 20,
+    val marginBeforeKeyAccidentals: Int = 12,
+    val marginBeforeChords: Int = 30,
+    val spaceBetweenAccidentalAndNoteHead: Int = 5,
+    val spaceBetweenChords: Int = 20
 )
