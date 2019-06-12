@@ -3,14 +3,16 @@
           package="com.mglizerin.vocaltuningfork">
 
     <application
-            android:name="com.mglizerin.vocaltuningfork.application.TuningForkApplication"
+            android:name=".application.TuningForkApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="Tuning Fork"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.mglizerin.vocaltuningfork.MainActivity">
+        <activity android:name=".SamplesActivity">
+        </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
