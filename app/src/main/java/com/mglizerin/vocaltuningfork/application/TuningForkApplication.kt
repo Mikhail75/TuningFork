@@ -7,7 +7,9 @@ import com.mglizerin.tuningfork.player.util.createDefaultSoundBank
 import com.mglizerin.tuningfork.samples.createSamples
 import com.mglizerin.tuningfork.sound.Key
 import com.mglizerin.tuningfork.sound.Tempo
+import com.mglizerin.tuningfork.sound.interfaces.IKey
 import com.mglizerin.tuningfork.sound.interfaces.ISample
+import com.mglizerin.tuningfork.sound.interfaces.ITempo
 import com.mglizerin.tuningfork.sound.types.*
 
 class TuningForkApplication: Application() {
@@ -15,8 +17,29 @@ class TuningForkApplication: Application() {
     private lateinit var mPlayer: Player
     private lateinit var mSamples: List<ISample>
 
+    private var mKey = Key(Note.G, Accidental.NATURAL, Mode.MAJOR)
+    private var mTempo = Tempo(Beat.QUARTER, 90)
+
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
+    fun tempo(): ITempo {
+        return Tempo(mTempo.beat(), mTempo.beatsPerMinute())
+    }
+
+    fun setKey(key: IKey) {
+        if (key != mKey) {
+            mKey = Key(key.note(), key.accidental(), key.mode())
+            createSamples()
+        }
+    }
+
+    fun setTempo(beatsPerMinute: Int) {
+        if (beatsPerMinute != mTempo.beatsPerMinute) {
+            mTempo = Tempo(Beat.QUARTER, beatsPerMinute)
+            createSamples()
+        }
     }
 
     override fun onCreate() {
@@ -25,7 +48,11 @@ class TuningForkApplication: Application() {
         instance = this
 
         mPlayer = Player(mSoundBank, instance)
-        mSamples = createSamples(Key(Note.G, Accidental.NATURAL, Mode.MAJOR), Tempo(Beat.QUARTER, 90))
+        createSamples()
+    }
+
+    private fun createSamples() {
+        mSamples = createSamples(mKey, mTempo)
     }
 
     companion object {
