@@ -25,11 +25,7 @@ class MainActivity : AppCompatActivity() {
         initChangeTempoButtons()
         initTempoTextView()
         initTempoSeekBar()
-
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-            startActivity(Intent(this, SamplesActivity::class.java))
-        }
+        initKeyButtons()
     }
 
     private fun initChangeTempoButtons() {
@@ -69,6 +65,16 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun initKeyButtons() {
+        buttonIdToKeyMap.forEach {
+            val (id, key) = it
+            findViewById<Button>(id).setOnClickListener {
+                TuningForkApplication.getApplication().setKey(key)
+                startActivity(Intent(this, SamplesActivity::class.java))
+            }
+        }
     }
 
     private fun onTempoChanged(value: Int) {
